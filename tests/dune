@@ -1,0 +1,16 @@
+(tests
+ (names
+  agluszak
+  GH_kmichael08
+  GH_Mucosolvan
+  ; GH_Nhemisirmkow_test
+  ; GH_Nhemisirmkow_test2
+  mgienieczko
+  ; z_GH_amharc
+  ; z_tkanas
+  )
+ (flags
+  (:standard -warn-error -a))
+ (ocamlc_flags
+  (:standard -w -a))
+ (libraries origami))
