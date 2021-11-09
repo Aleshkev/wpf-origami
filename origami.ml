@@ -15,12 +15,12 @@ let point_of p : point = (p.re, p.im)
 let ( +.. ), ( -.. ), ( *.. ), ( /.. ) = (add, sub, mul, div)
 let cross_product a b = (a.re *. b.im) -. (a.im *. b.re)
 
-type side = Left | Line | Right
+type side = Left | Right | Neither
 
 (** Po której stronie prostej wyznaczonej przez [p], [q] leży punkt [v]. *)
 let relate p q v =
   match cross_product (q -.. p) (v -.. p) with
-  | x when abs_float x < eps -> Line
+  | x when abs_float x < eps -> Neither
   | x when x < 0. -> Right
   | _ -> Left
 
@@ -42,10 +42,10 @@ let kolko o r v =
 let zloz p q f v =
   let p = complex_of p and q = complex_of q and v = complex_of v in
   match relate p q v with
-  | Line -> f (point_of v)
-  | Right -> 0
   | Left ->
       let v' = reflect p q v in
       f (point_of v) + f (point_of v')
+  | Right -> 0
+  | Neither -> f (point_of v)
 
 let skladaj l k = List.fold_left (fun k (p, q) -> zloz p q k) k l

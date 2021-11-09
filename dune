@@ -5,4 +5,10 @@
   (:standard -warn-error -a))
  ; ocamlc warnings are disabled because ocamlopt shows the same warnings
  (ocamlc_flags
-  (:standard -w -a)))
+  (:standard -w -a))
+ (modules origami))
+
+(test
+ (name plot)
+ (modules plot)
+ (libraries origami))
