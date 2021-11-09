@@ -5,8 +5,6 @@ type kartka = point -> int
 
 open Complex
 
-let eps = 1e-11
-
 (* Używamy wewnętrznie liczb zespolonych, bo są takimi wektorami
    zaimplementowanymi w bibliotece standardowej. Upraszczają obliczenia
    geometryczne. *)
@@ -14,6 +12,7 @@ let complex_of (a, b) = { re = a; im = b }
 let point_of p : point = (p.re, p.im)
 let ( +.. ), ( -.. ), ( *.. ), ( /.. ) = (add, sub, mul, div)
 let cross_product a b = (a.re *. b.im) -. (a.im *. b.re)
+let eps = 1e-11
 
 type side = Left | Right | Neither
 
@@ -35,8 +34,8 @@ let prostokat p q v = if p <=.. v && v <=.. q then 1 else 0
 
 let kolko o r v =
   let o = complex_of o and v = complex_of v in
-  (* Dodajemy [eps] żeby po straceniu odrobinki precyzji punkciki na krawędzi
-     nadal należały do koła. *)
+  (* Zwiększamy troszeczkę średnicę żeby po straceniu odrobinki precyzji
+     punkciki na krawędzi nadal należały do koła. *)
   if norm (o -.. v) <= r +. eps then 1 else 0
 
 let zloz p q f v =
