@@ -16,8 +16,8 @@ let eps = 1e-11
 
 type side = Left | Right | Neither
 
-(** Po której stronie prostej wyznaczonej przez [p], [q] leży punkt [v]. *)
-let relate p q v =
+(** Po której stronie prostej wyznaczonej przez [p, q] leży punkt [v]. *)
+let relate (p, q) v =
   match cross_product (q -.. p) (v -.. p) with
   | x when abs_float x < eps -> Neither
   | x when x < 0. -> Right
@@ -26,8 +26,8 @@ let relate p q v =
 (** Wektor symetryczny do wektora [v] względem wektora [p]. *)
 let reflect_free p v = conj (v /.. p) *.. p
 
-(** Punkt symetryczny do [v] względem prostej wyznaczonej przez [p], [q]. *)
-let reflect p q v = p +.. reflect_free (q -.. p) (v -.. p)
+(** Punkt symetryczny do [v] względem prostej wyznaczonej przez [p, q]. *)
+let reflect (p, q) v = p +.. reflect_free (q -.. p) (v -.. p)
 
 let ( <=.. ) (a, b) (c, d) = a <= c && b <= d
 let prostokat p q v = if p <=.. v && v <=.. q then 1 else 0
@@ -39,10 +39,10 @@ let kolko o r v =
   if norm (o -.. v) <= r +. eps then 1 else 0
 
 let zloz p q f v =
-  let p = complex_of p and q = complex_of q and v = complex_of v in
-  match relate p q v with
+  let pq = (complex_of p, complex_of q) and v = complex_of v in
+  match relate pq v with
   | Left ->
-      let v' = reflect p q v in
+      let v' = reflect pq v in
       f (point_of v) + f (point_of v')
   | Right -> 0
   | Neither -> f (point_of v)
