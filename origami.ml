@@ -1,4 +1,5 @@
-(* Autor: Jonasz Aleszkiewicz *)
+(*       Autor: Jonasz Aleszkiewicz *)
+(* Code Review: ???                 *)
 
 type point = float * float
 type kartka = point -> int
@@ -6,9 +7,7 @@ type kartka = point -> int
 let ( <=.. ) (a, b) (c, d) = a <= c && b <= d
 let prostokat p q v = if p <=.. v && v <=.. q then 1 else 0
 
-(* Używamy wewnętrznie liczb zespolonych, bo są takimi wektorami
-   zaimplementowanymi w bibliotece standardowej. Upraszczają obliczenia
-   geometryczne. *)
+(* Używamy wewnętrznie liczb zespolonych, bo są niemalże wektorami. *)
 open Complex
 
 let complex_of (a, b) = { re = a; im = b }
@@ -16,7 +15,7 @@ let point_of p : point = p.re, p.im
 let ( +.. ), ( -.. ), ( *.. ), ( /.. ) = add, sub, mul, div
 let cross_product a b = (a.re *. b.im) -. (a.im *. b.re)
 
-(** Floaty nie są dokładne, więc trzeba tolerować czasami małe błędy. *)
+(** Bardzo mała liczba. *)
 let eps = 1e-11
 
 type side = Left | Right | Neither
@@ -37,7 +36,7 @@ let reflect (p, q) v = p +.. reflect_free (q -.. p) (v -.. p)
 let kolko o r v =
   let o = complex_of o and v = complex_of v in
   (* Zwiększamy troszeczkę średnicę żeby po straceniu odrobinki precyzji
-     punkciki na krawędzi nadal należały do koła. *)
+     punkciki na krawędzi nadal należały do kółeczka. *)
   if norm (o -.. v) <= r +. eps then 1 else 0
 
 let zloz p q f v =

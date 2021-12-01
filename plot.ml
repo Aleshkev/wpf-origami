@@ -24,7 +24,7 @@ let plot f filename =
         axis)
     axis
 
-let a = kolko (3., 3.) 7.;;
+(* let a = kolko (3., 3.) 7.;;
 
 plot a "f1.csv"
 
@@ -46,4 +46,16 @@ plot a "f5.csv"
 
 let a = zloz (1., 0.) (5., 10.) a;;
 
-plot a "f6.csv"
+plot a "f6.csv" *)
+
+
+let centr = (0., 0.);;
+
+let l = [((5., 0.), (5., 377.)); ((5., 0.), (5., 1.));
+	 ((-6., -6.), (-6.1, -6.1)); ((9., 5.), (4., 2.))];;
+
+let a = prostokat centr (10., 10.);;
+
+let a = skladaj l a;;
+
+plot a "g1.csv"
