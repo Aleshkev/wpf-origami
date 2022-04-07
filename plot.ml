@@ -22,7 +22,8 @@ let plot f filename =
             ^ string_of_int (f (x, y))
             ^ "\n"))
         axis)
-    axis
+    axis;
+    close_out file
 
 (* let a = kolko (3., 3.) 7.;;
 
@@ -47,7 +48,6 @@ plot a "f5.csv"
 let a = zloz (1., 0.) (5., 10.) a;;
 
 plot a "f6.csv" *)
-
 
 let centr = (0., 0.);;
 

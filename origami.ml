@@ -1,5 +1,5 @@
-(*       Autor: Jonasz Aleszkiewicz *)
-(* Code Review: ???                 *)
+(*       Autor: Jonasz Aleszkiewicz     *)
+(* Code Review: Jakub Kołaczyński, gr.5 *)
 
 type point = float * float
 type kartka = point -> int
